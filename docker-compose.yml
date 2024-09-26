@@ -71,7 +71,7 @@ services:
     container_name: frontend-service
     build:
       context: .
-      dockerfile: Play.FrontEnd/Dockerfile
+      dockerfile: Play.Frontend/Dockerfile
     depends_on:
       - mongo
       - rabbitmq
