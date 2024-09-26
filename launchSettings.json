@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "play.catalog.service": "StartDebugging",
+        "play.inventory.service": "StartDebugging"
+      }
+    }
+  }
+}

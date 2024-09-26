@@ -1,0 +1,96 @@
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes: 
+      - mongodbdata:/data/db
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports: 
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmqdata:/var/lib/rabbitmq
+    hostname: rabbitmq
+    depends_on:
+      - mongo
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/
+      ME_CONFIG_BASICAUTH: false
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_PORT: 27017
+    depends_on:
+      - mongo
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+    volumes: 
+      - postgres-db:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  play.catalog.service:
+    image: ${DOCKER_REGISTRY-}playcatalogservice
+    container_name: catalog-service
+    build:
+      context: .
+      dockerfile: Play.Catalog/src/Play.Catalog.Service/Dockerfile 
+    depends_on:
+      - mongo
+      - rabbitmq
+
+  play.inventory.service:
+    image: ${DOCKER_REGISTRY-}playinventoryservice
+    container_name: inventory-service
+    build:
+      context: .
+      dockerfile: Play.Inventory/src/Play.Inventory.Service/Dockerfile
+    depends_on:
+      - mongo
+      - rabbitmq
+      - play.catalog.service
+
+  play.frontend:
+    image: ${DOCKER_REGISTRY-}play.frontend
+    container_name: frontend-service
+    build:
+      context: .
+      dockerfile: Play.FrontEnd/Dockerfile
+    depends_on:
+      - mongo
+      - rabbitmq
+      - play.catalog.service
+      - play.inventory.service
+      - nginx
+    ports:
+      - 4000:80
+
+  nginx:
+    image: nginx:stable-alpine
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+
+volumes: 
+  mongodbdata:
+  rabbitmqdata:
+  postgres-db:
+
+
