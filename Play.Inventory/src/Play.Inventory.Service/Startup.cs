@@ -80,7 +80,7 @@ namespace Play.Inventory.Service
             services.AddHttpClient<CatalogClient>(client =>
             {
               
-                client.BaseAddress = new Uri("https://catalog-service:8081");                
+                client.BaseAddress = new Uri("http://catalog-service:8080");                
             }).ConfigurePrimaryHttpMessageHandler(() =>
             {
                 // Allowing Untrusted SSL Certificates
