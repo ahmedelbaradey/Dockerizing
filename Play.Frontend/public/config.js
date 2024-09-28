@@ -7,7 +7,7 @@
 // Warning: this file will not be transpiled by Babel and cannot contain
 // any syntax that is not yet supported by your targeted browsers.
 
-window.CATALOG_SERVICE_URL = 'http://docker.ukwest.cloudapp.azure.com:5000'
+window.CATALOG_SERVICE_URL = 'http://docker.ukwest.cloudapp.azure.com:5555'
 window.CATALOG_ITEMS_API_URL = `${window.CATALOG_SERVICE_URL}/items`
 window.INVENTORY_SERVICE_URL = 'http://docker.ukwest.cloudapp.azure.com:5002'
 window.INVENTORY_ITEMS_API_URL = `${window.INVENTORY_SERVICE_URL}/items`

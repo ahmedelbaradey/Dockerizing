@@ -48,7 +48,7 @@ services:
   play.catalog.service:
     #image: ${DOCKER_REGISTRY-}playcatalogservice
     image : ahmedelbaradey/playcatalogservice
-    container_name: catalog-service
+    #container_name: catalog-service
     build:
       context: .
       dockerfile: Play.Catalog/src/Play.Catalog.Service/Dockerfile 
@@ -92,6 +92,14 @@ services:
     depends_on:
       - play.frontend
 
+  nginx-for-catalog:
+    image: nginx:stable-alpine
+    volumes:
+      - ./nginx/default2.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 5555:80
+    depends_on:
+      - play.catalog.service
 volumes: 
   mongodbdata:
   rabbitmqdata:
