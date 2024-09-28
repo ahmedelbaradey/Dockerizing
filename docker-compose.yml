@@ -71,7 +71,7 @@ services:
   play.frontend:
     #image: ${DOCKER_REGISTRY-}play.frontend
     image: ahmedelbaradey/play.frontend
-    container_name: frontend-service
+    # container_name: frontend-service
     build:
       context: .
       dockerfile: Play.Frontend/Dockerfile
@@ -80,8 +80,8 @@ services:
       - rabbitmq
       - play.catalog.service
       - play.inventory.service
-    ports:
-      - 3000:3000
+    # ports:
+    #   - 3000:3000
 
   nginx:
     image: nginx:stable-alpine

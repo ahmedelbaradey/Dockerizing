@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { ApplicationPaths } from './Constants';
 
-export class Home extends Component
-{
+export class Home extends Component {
   static displayName = Home.name;
 
-  render()
-  {
+  render() {
+    console.log("Hi")
     return (
       <div>
-        <h1>Play Economy</h1>
+        <h1>Play Economy FROM </h1>
         <p>Welcome to the Play Economy website, a cloud native virtual economy system.</p>
         <p>To get started, yout can:</p>
         <ul>
@@ -19,9 +18,10 @@ export class Home extends Component
         </ul>
         <p>You can also</p>
         <ul>
+          <li>Manage the <a href={window.MONOGEXPRESS} target="_blank" rel="noreferrer">Mongo DB</a></li>
           <li>Manage the <a href={window.RABBITMQ_URL} target="_blank" rel="noreferrer">message queues</a></li>
           <li>Explore the Open API documentation:
-          <ul>
+            <ul>
               <li><a href={`${window.CATALOG_SERVICE_URL}/swagger`} target="_blank" rel="noreferrer">Catalog service</a></li>
               <li><a href={`${window.INVENTORY_SERVICE_URL}/swagger`} target="_blank" rel="noreferrer">Inventory service</a></li>
             </ul>
